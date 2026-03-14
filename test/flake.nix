@@ -20,6 +20,7 @@
               inputs.home-manager.nixosModules.home-manager
             ];
 
+            nixpkgs.config.allowUnfree = true;
             home-manager.useGlobalPkgs = true;
             home-manager.users.testuser = {
               imports = [
@@ -28,9 +29,7 @@
               ];
               home.stateVersion = "24.11";
               programs.opencode.enable = true;
-              programs.opencode.package = null;
               programs.claude-code.enable = true;
-              programs.claude-code.package = null;
             };
 
             users.users.testuser = {
