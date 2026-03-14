@@ -8,6 +8,5 @@ let
   skills = import ./discover-skills.nix { inherit skillsSrc; } { inherit lib; };
 in
 {
-  programs.claude-code.enable = true;
   programs.claude-code.skills = skills;
 }

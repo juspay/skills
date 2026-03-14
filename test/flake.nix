@@ -24,6 +24,7 @@
             home-manager.users.testuser = {
               imports = [ inputs.skills.homeModules.opencode ];
               home.stateVersion = "24.11";
+              programs.opencode.enable = true;
             };
 
             users.users.testuser = {

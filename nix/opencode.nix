@@ -8,6 +8,5 @@ let
   skills = import ./discover-skills.nix { inherit skillsSrc; } { inherit lib; };
 in
 {
-  programs.opencode.enable = true;
   programs.opencode.skills = skills;
 }
