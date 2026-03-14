@@ -6,5 +6,32 @@ AI skill pack — reusable [SKILL.md](https://opencode.ai/docs/skills/) definiti
 
 | Skill | Description |
 |-------|-------------|
-| [`nix-flake`](./nix-flake/SKILL.md) | Writing flakes with flake-parts, formatter, shell scripts, and language templates |
-| [`nix-haskell`](./nix-haskell/SKILL.md) | Haskell projects with haskell-flake: dependencies, settings, devShell, autoWire |
+| [`nix-flake`](./skills/nix-flake/SKILL.md) | Writing flakes with flake-parts, formatter, shell scripts, and language templates |
+| [`nix-haskell`](./skills/nix-haskell/SKILL.md) | Haskell projects with haskell-flake: dependencies, settings, devShell, autoWire |
+
+## Setup (home-manager)
+
+Add the flake input:
+
+```nix
+# flake.nix inputs
+skills.url = "github:juspay/skills";
+```
+
+Import the module for your agent:
+
+```nix
+# For OpenCode
+imports = [ inputs.skills.homeModules.opencode ];
+
+# For Claude Code
+imports = [ inputs.skills.homeModules.claude-code ];
+
+# Or both
+imports = [
+  inputs.skills.homeModules.opencode
+  inputs.skills.homeModules.claude-code
+];
+```
+
+All skills are automatically discovered and installed. New skills added to this repo are picked up on `flake update`.
