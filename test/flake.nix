@@ -28,7 +28,9 @@
               ];
               home.stateVersion = "24.11";
               programs.opencode.enable = true;
+              programs.opencode.package = null;
               programs.claude-code.enable = true;
+              programs.claude-code.package = null;
             };
 
             users.users.testuser = {
