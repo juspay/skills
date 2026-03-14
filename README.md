@@ -7,3 +7,4 @@ AI skill pack — reusable [SKILL.md](https://opencode.ai/docs/skills/) definiti
 | Skill | Description |
 |-------|-------------|
 | [`nix-flake`](./nix-flake/SKILL.md) | Writing flakes with flake-parts, formatter, shell scripts, and language templates |
+| [`nix-haskell`](./nix-haskell/SKILL.md) | Haskell projects with haskell-flake: dependencies, settings, devShell, autoWire |
