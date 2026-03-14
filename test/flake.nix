@@ -12,7 +12,7 @@
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [ "x86_64-linux" ];
       perSystem = { pkgs, ... }: {
-        checks.home-manager-module = pkgs.nixosTest {
+        checks.home-manager-module = pkgs.testers.nixosTest {
           name = "skills-home-manager-module";
 
           nodes.machine = {
