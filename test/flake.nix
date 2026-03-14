@@ -11,8 +11,15 @@
   outputs = inputs:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [ "x86_64-linux" ];
-      perSystem = { pkgs, ... }: {
-        checks.home-manager-module = pkgs.testers.nixosTest {
+      perSystem = { pkgs, system, ... }:
+        let
+          pkgs-unfree = import inputs.nixpkgs {
+            inherit system;
+            config.allowUnfree = true;
+          };
+        in
+        {
+        checks.home-manager-module = pkgs-unfree.testers.nixosTest {
           name = "skills-home-manager-module";
 
           nodes.machine = {
@@ -20,7 +27,6 @@
               inputs.home-manager.nixosModules.home-manager
             ];
 
-            nixpkgs.config.allowUnfree = true;
             home-manager.useGlobalPkgs = true;
             home-manager.users.testuser = {
               imports = [
