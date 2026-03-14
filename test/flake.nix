@@ -22,9 +22,13 @@
 
             home-manager.useGlobalPkgs = true;
             home-manager.users.testuser = {
-              imports = [ inputs.skills.homeModules.opencode ];
+              imports = [
+                inputs.skills.homeModules.opencode
+                inputs.skills.homeModules.claude-code
+              ];
               home.stateVersion = "24.11";
               programs.opencode.enable = true;
+              programs.claude-code.enable = true;
             };
 
             users.users.testuser = {
@@ -35,10 +39,16 @@
 
           testScript = ''
             machine.wait_for_unit("home-manager-testuser.service")
+
+            # OpenCode
             machine.succeed("test -f /home/testuser/.config/opencode/skill/nix-flake/SKILL.md")
             machine.succeed("test -f /home/testuser/.config/opencode/skill/nix-haskell/SKILL.md")
             machine.succeed("grep -q 'name: nix-flake' /home/testuser/.config/opencode/skill/nix-flake/SKILL.md")
-            machine.succeed("grep -q 'name: nix-haskell' /home/testuser/.config/opencode/skill/nix-haskell/SKILL.md")
+
+            # Claude Code
+            machine.succeed("test -f /home/testuser/.claude/skills/nix-flake/SKILL.md")
+            machine.succeed("test -f /home/testuser/.claude/skills/nix-haskell/SKILL.md")
+            machine.succeed("grep -q 'name: nix-flake' /home/testuser/.claude/skills/nix-flake/SKILL.md")
           '';
         };
       };
