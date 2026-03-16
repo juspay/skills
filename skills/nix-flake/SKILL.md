@@ -40,3 +40,11 @@ Use [nixos-unified-template](https://github.com/juspay/nixos-unified-template). 
 
 - [`process-compose-flake`](https://github.com/Platonic-Systems/process-compose-flake): runs multi-process dev environments (backends, watchers, etc.) via `process-compose` integrated into a `devShell`.
 - [`services-flake`](https://github.com/juspay/services-flake): built on top of `process-compose-flake`; provides ready-made service modules (PostgreSQL, Redis, etc.) for use in dev shells.
+
+## Testing pattern
+
+Isolate tests in `test/flake.nix` to avoid polluting parent. No top-level flake needed — test flake can reference parent content directly:
+```nix
+configDir = builtins.path { path = ./..; name = "config"; };
+```
+Use `pkgs.testers.nixosTest` for NixOS VM tests.
