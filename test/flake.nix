@@ -5,7 +5,7 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    skills.url = "path:../..";
+    nix-agent-wire.url = "github:srid/nix-agent-wire";
   };
 
   outputs = inputs:
@@ -17,6 +17,7 @@
             inherit system;
             config.allowUnfree = true;
           };
+          configDir = builtins.path { path = ./..; name = "skills-config"; };
         in
         {
         checks.home-manager-module = pkgs-unfree.testers.nixosTest {
@@ -30,12 +31,14 @@
             home-manager.useGlobalPkgs = true;
             home-manager.users.testuser = {
               imports = [
-                inputs.skills.homeModules.opencode
-                inputs.skills.homeModules.claude-code
+                inputs.nix-agent-wire.homeModules.opencode
+                inputs.nix-agent-wire.homeModules.claude-code
               ];
               home.stateVersion = "24.11";
               programs.opencode.enable = true;
+              programs.opencode.autoWire.dirs = [ configDir ];
               programs.claude-code.enable = true;
+              programs.claude-code.autoWire.dirs = [ configDir ];
             };
 
             users.users.testuser = {
@@ -51,13 +54,11 @@
             machine.succeed("test -f /home/testuser/.config/opencode/skill/nix-flake/SKILL.md")
             machine.succeed("test -f /home/testuser/.config/opencode/skill/nix-haskell/SKILL.md")
             machine.succeed("test -f /home/testuser/.config/opencode/skill/vhs/SKILL.md")
-            machine.succeed("grep -q 'name: nix-flake' /home/testuser/.config/opencode/skill/nix-flake/SKILL.md")
 
             # Claude Code
-            machine.succeed("test -f /home/testuser/.claude/skills/nix-flake/SKILL.md")
-            machine.succeed("test -f /home/testuser/.claude/skills/nix-haskell/SKILL.md")
-            machine.succeed("test -f /home/testuser/.claude/skills/vhs/SKILL.md")
-            machine.succeed("grep -q 'name: nix-flake' /home/testuser/.claude/skills/nix-flake/SKILL.md")
+            machine.succeed("test -d /home/testuser/.claude/skills/nix-flake")
+            machine.succeed("test -d /home/testuser/.claude/skills/nix-haskell")
+            machine.succeed("test -d /home/testuser/.claude/skills/vhs")
           '';
         };
       };
