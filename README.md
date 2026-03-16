@@ -37,4 +37,4 @@ Use [nix-agent-wire](https://github.com/srid/nix-agent-wire) to wire these skill
 }
 ```
 
-See [nix-agent-wire](https://github.com/srid/nix-agent-wire) and [srid/nixos-config/AI](https://github.com/srid/nixos-config/tree/master/AI) for full documentation.
+See [nix-agent-wire](https://github.com/srid/nix-agent-wire) for full documentation.
