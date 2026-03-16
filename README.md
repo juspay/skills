@@ -8,6 +8,7 @@ AI skill pack — reusable [SKILL.md](https://opencode.ai/docs/skills/) definiti
 |-------|-------------|
 | [`nix-flake`](./skills/nix-flake/SKILL.md) | Writing flakes with flake-parts, formatter, shell scripts, and language templates |
 | [`nix-haskell`](./skills/nix-haskell/SKILL.md) | Haskell projects with haskell-flake: dependencies, settings, devShell, autoWire |
+| [`nix-ci`](./skills/nix-ci/SKILL.md) | CI setup for GitHub repos — GitHub Actions or Vira |
 | [`vhs`](./skills/vhs/SKILL.md) | Deterministic terminal demo screencasts with VHS and wait patterns |
 
 ## Setup (home-manager)
