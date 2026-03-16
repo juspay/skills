@@ -5,7 +5,7 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    skills.url = "path:..";
+    skills.url = "path:../..";
   };
 
   outputs = inputs:
