@@ -13,29 +13,28 @@ AI skill pack — reusable [SKILL.md](https://opencode.ai/docs/skills/) definiti
 | [`nix-ci`](./skills/nix-ci/SKILL.md) | CI setup for GitHub repos — GitHub Actions or Vira |
 | [`vhs`](./skills/vhs/SKILL.md) | Deterministic terminal demo screencasts with VHS and wait patterns |
 
-## Setup (home-manager)
+## Usage
 
-Add the flake input:
-
-```nix
-# flake.nix inputs
-skills.url = "github:juspay/skills";
-```
-
-Import the module for your agent:
+Use [nix-agent-wire](https://github.com/srid/nix-agent-wire) to wire these skills into your agent config:
 
 ```nix
-# For OpenCode
-imports = [ inputs.skills.homeModules.opencode ];
+# flake.nix
+{
+  inputs.nix-agent-wire.url = "github:srid/nix-agent-wire";
+  inputs.skills.url = "github:juspay/skills";
 
-# For Claude Code
-imports = [ inputs.skills.homeModules.claude-code ];
-
-# Or both
-imports = [
-  inputs.skills.homeModules.opencode
-  inputs.skills.homeModules.claude-code
-];
+  outputs = { inputs, ... }: {
+    homeConfigurations.myuser = inputs.home-manager.lib.homeManagerConfiguration {
+      modules = [
+        inputs.nix-agent-wire.homeModules.opencode
+        {
+          programs.openable.enable = true;
+          programs.opencode.autoWire.dirs = [ "${inputs.skills}/skills" ];
+        }
+      ];
+    };
+  };
+}
 ```
 
-All skills are automatically discovered and installed. New skills added to this repo are picked up on `flake update`.
+See [nix-agent-wire](https://github.com/srid/nix-agent-wire) and [srid/nixos-config/AI](https://github.com/srid/nixos-config/tree/master/AI) for full documentation.
