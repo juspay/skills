@@ -33,11 +33,13 @@ jobs:
 
 ## Option 2: Vira Self-Hosted
 
-Vira is already running and pointed at the repo. Create a `vira.hs` file in the repo root to configure the build pipeline. Refer to the **[Vira configuration docs](https://vira.nixos.asia/config)** for the DSL format.
+Vira is already running and pointed at the repo. Create a `vira.hs` file in the repo root to configure the build pipeline.
+
+**Before generating `vira.hs`, you MUST fetch and read https://vira.nixos.asia/config to understand the exact DSL format. Do not guess the syntax.**
 
 ### Rules for generating `vira.hs`
 
-- If the repo is on **GitHub**, set `signoff.enable = True`
+- If the repo has a **git remote pointing to GitHub**, set `signoff.enable = True`
 - If **multiple `flake.nix` files** exist (e.g., in subdirectories), add all of them to `build.flakes` with appropriate `overrideInputs` settings
 - Leave `cache.url = Nothing` with a comment `-- TODO: configure Attic cache URL`
 - Use the **Ask tool** to ask the user whether `build.systems` should be set to `["x86_64-linux", "aarch64-darwin"]` for multi-platform builds
