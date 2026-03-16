@@ -50,11 +50,13 @@
             # OpenCode
             machine.succeed("test -f /home/testuser/.config/opencode/skill/nix-flake/SKILL.md")
             machine.succeed("test -f /home/testuser/.config/opencode/skill/nix-haskell/SKILL.md")
+            machine.succeed("test -f /home/testuser/.config/opencode/skill/vhs/SKILL.md")
             machine.succeed("grep -q 'name: nix-flake' /home/testuser/.config/opencode/skill/nix-flake/SKILL.md")
 
             # Claude Code
             machine.succeed("test -f /home/testuser/.claude/skills/nix-flake/SKILL.md")
             machine.succeed("test -f /home/testuser/.claude/skills/nix-haskell/SKILL.md")
+            machine.succeed("test -f /home/testuser/.claude/skills/vhs/SKILL.md")
             machine.succeed("grep -q 'name: nix-flake' /home/testuser/.claude/skills/nix-flake/SKILL.md")
           '';
         };
