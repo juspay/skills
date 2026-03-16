@@ -21,7 +21,7 @@ Use [nix-agent-wire](https://github.com/srid/nix-agent-wire) to wire these skill
 # flake.nix
 {
   inputs.nix-agent-wire.url = "github:srid/nix-agent-wire";
-  inputs.skills.url = "github:juspay/skills";
+  inputs.juspay-skills.url = "github:juspay/skills";
 
   outputs = { inputs, ... }: {
     homeConfigurations.myuser = inputs.home-manager.lib.homeManagerConfiguration {
@@ -29,7 +29,7 @@ Use [nix-agent-wire](https://github.com/srid/nix-agent-wire) to wire these skill
         inputs.nix-agent-wire.homeModules.opencode
         {
           programs.openable.enable = true;
-          programs.opencode.autoWire.dirs = [ inputs.skills ];
+          programs.opencode.autoWire.dirs = [ inputs.juspay-skills ];
         }
       ];
     };
