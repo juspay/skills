@@ -29,7 +29,7 @@ Use [nix-agent-wire](https://github.com/srid/nix-agent-wire) to wire these skill
         inputs.nix-agent-wire.homeModules.opencode
         {
           programs.openable.enable = true;
-          programs.opencode.autoWire.dirs = [ "${inputs.skills}/skills" ];
+          programs.opencode.autoWire.dirs = [ inputs.skills ];
         }
       ];
     };
