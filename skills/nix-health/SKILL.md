@@ -98,7 +98,16 @@ sysctl -n sysctl.proc_translated 2>/dev/null
 If the value is `1`, Nix is running under Rosetta emulation which slows builds:
 - **Suggestion**: Disable Rosetta for your terminal (Finder → Get Info → uncheck "Open using Rosetta"). Uninstall and reinstall Nix for `aarch64-darwin`. See https://nixos.asia/en/install
 
-## 9. Shell Dotfiles
+## 9. Homebrew (macOS only)
+
+```sh
+which brew 2>/dev/null
+```
+
+If Homebrew is installed, flag as ⚠️ — it can interfere with Nix environments (e.g. conflicting library paths, shadowed binaries).
+- **Suggestion**: Prefer managing packages with Nix for better reproducibility. Inventory existing packages with `brew list`, install equivalents via Nix, then consider removing Homebrew.
+
+## 10. Shell Dotfiles
 
 Check if shell config files are managed by Nix. For each dotfile that exists, resolve its real path — it should point into `/nix/store/`:
 ```sh
