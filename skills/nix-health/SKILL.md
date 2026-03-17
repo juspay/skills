@@ -11,7 +11,7 @@ Run these checks to diagnose problems with a Nix installation. For each failing 
 
 Identify which installer was used:
 ```sh
-# Determinate Systems installer leaves a receipt:
+# NixOS/nix-installer and Determinate Nix both leave a receipt:
 cat /nix/receipt.json 2>/dev/null | python3 -c "import sys,json; print(json.load(sys.stdin).get('version','unknown'))" 2>/dev/null
 
 # On macOS, check launchd service names:
@@ -19,11 +19,14 @@ ls /Library/LaunchDaemons/*nix* /Library/LaunchDaemons/*determinate* 2>/dev/null
 
 # On Linux, check systemd:
 systemctl list-units '*nix*' '*determinate*' --no-pager 2>/dev/null
+
+# Check for determinate-nixd (Determinate Nix specific):
+which determinate-nixd 2>/dev/null
 ```
 
-- If `/nix/receipt.json` exists → **Determinate Systems** installer
-- If `systems.determinate.nix-store` service exists → **Determinate Systems** installer
-- If `org.nixos.nix-daemon` (macOS) or `nix-daemon.service` (Linux) exists without receipt → **Official** installer
+- If `determinate-nixd` exists or `systems.determinate.*` services are present → **Determinate Nix** (commercial, from [Determinate Systems](https://determinate.systems))
+- If `/nix/receipt.json` exists but no `determinate-nixd` → **[NixOS/nix-installer](https://github.com/NixOS/nix-installer)** (community, formerly DeterminateSystems/nix-installer)
+- If no receipt and `org.nixos.nix-daemon` (macOS) or `nix-daemon.service` (Linux) → **Official** installer
 - Report the installer type as informational (ℹ️). No pass/fail.
 
 ## 2. Flakes Enabled
