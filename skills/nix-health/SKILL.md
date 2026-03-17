@@ -75,15 +75,19 @@ If the value is `1`, Nix is running under Rosetta emulation which slows builds:
 
 ## 8. Shell Dotfiles
 
-Check if shell config files are managed by Nix (symlinked into `/nix/store`):
+Check if shell config files are managed by Nix. For each dotfile that exists, resolve its real path — it should point into `/nix/store/`:
 ```sh
 # For zsh:
-for f in ~/.zshrc ~/.zshenv ~/.zprofile; do [ -L "$f" ] && readlink -f "$f"; done
+for f in ~/.zshrc ~/.zshenv ~/.zprofile ~/.zlogin ~/.zlogout; do
+  [ -e "$f" ] && echo "$f -> $(python3 -c "import os; print(os.path.realpath('$f'))")"
+done
 # For bash:
-for f in ~/.bashrc ~/.bash_profile ~/.profile; do [ -L "$f" ] && readlink -f "$f"; done
+for f in ~/.bashrc ~/.bash_profile ~/.profile; do
+  [ -e "$f" ] && echo "$f -> $(python3 -c "import os; print(os.path.realpath('$f'))")"
+done
 ```
 
-If dotfiles exist but do not resolve into `/nix/store/`, the shell is not Nix-managed.
+Any dotfile whose resolved path is **not** under `/nix/store/` is unmanaged — flag it as ⚠️.
 - **Suggestion**: Use home-manager to manage shell configuration. See https://github.com/juspay/nixos-unified-template
 
 ## Reporting
