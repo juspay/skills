@@ -61,7 +61,11 @@ Value must be > 1 (ideally `auto`). If set to 1:
 nix config show 2>/dev/null | grep '^substituters'
 ```
 
-Must include `https://cache.nixos.org`. If the project specifies additional caches (e.g. Cachix), verify those too.
+Must include `https://cache.nixos.org`. Also check for project-specific caches defined in:
+- `nixConfig.extra-substituters` in the project's `flake.nix`
+- `cache.url` in the project's `vira.hs` (Vira CI config)
+
+If any required caches are missing from the user's substituters:
 - **Suggestion**: Add missing caches to nix.conf `substituters`. For Cachix caches run `nix run nixpkgs#cachix use <name>`.
 
 ## 6. Trusted Users
