@@ -3,6 +3,10 @@ default:
 
 oc_run := "nix --refresh run github:juspay/oc#oneclick --override-input skills . run"
 
+# Launch opencode TUI with local skills
+run:
+    nix --refresh run github:juspay/oc#oneclick --override-input skills .
+
 # Test nix-health skill, e.g.: just test-health "Check the health of my Nix install"
 test-health msg="Check the health of my Nix install":
     {{oc_run}} "{{msg}}"
