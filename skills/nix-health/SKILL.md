@@ -24,10 +24,9 @@ systemctl list-units '*nix*' '*determinate*' --no-pager 2>/dev/null
 which determinate-nixd 2>/dev/null
 ```
 
-- If `determinate-nixd` exists or `systems.determinate.*` services are present → **Determinate Nix** (commercial, from [Determinate Systems](https://determinate.systems))
-- If `/nix/receipt.json` exists but no `determinate-nixd` → **[NixOS/nix-installer](https://github.com/NixOS/nix-installer)** (community, formerly DeterminateSystems/nix-installer)
-- If no receipt and `org.nixos.nix-daemon` (macOS) or `nix-daemon.service` (Linux) → **Official** installer
-- Report the installer type as informational (ℹ️). No pass/fail.
+- If `determinate-nixd` exists or `systems.determinate.*` services are present → ⚠️ **Determinate Nix** detected (proprietary fork). **Suggestion**: Switch to the official installer or [NixOS/nix-installer](https://github.com/NixOS/nix-installer) for a fully open-source Nix. See https://nixos.org/download/
+- If `/nix/receipt.json` exists but no `determinate-nixd` → ℹ️ **[NixOS/nix-installer](https://github.com/NixOS/nix-installer)** (community, formerly DeterminateSystems/nix-installer)
+- If no receipt and `org.nixos.nix-daemon` (macOS) or `nix-daemon.service` (Linux) → ℹ️ **Official** installer
 
 ## 2. Flakes Enabled
 
