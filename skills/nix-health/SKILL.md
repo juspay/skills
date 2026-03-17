@@ -7,7 +7,26 @@ description: Use this when diagnosing or fixing a user's Nix installation — ch
 
 Run these checks to diagnose problems with a Nix installation. For each failing check, report the issue and suggestion to the user.
 
-## 1. Flakes Enabled
+## 1. Nix Installer
+
+Identify which installer was used:
+```sh
+# Determinate Systems installer leaves a receipt:
+cat /nix/receipt.json 2>/dev/null | python3 -c "import sys,json; print(json.load(sys.stdin).get('version','unknown'))" 2>/dev/null
+
+# On macOS, check launchd service names:
+ls /Library/LaunchDaemons/*nix* /Library/LaunchDaemons/*determinate* 2>/dev/null
+
+# On Linux, check systemd:
+systemctl list-units '*nix*' '*determinate*' --no-pager 2>/dev/null
+```
+
+- If `/nix/receipt.json` exists → **Determinate Systems** installer
+- If `systems.determinate.nix-store` service exists → **Determinate Systems** installer
+- If `org.nixos.nix-daemon` (macOS) or `nix-daemon.service` (Linux) exists without receipt → **Official** installer
+- Report the installer type as informational (ℹ️). No pass/fail.
+
+## 2. Flakes Enabled
 
 ```sh
 nix config show 2>/dev/null | grep '^experimental-features'
@@ -16,7 +35,7 @@ nix config show 2>/dev/null | grep '^experimental-features'
 Value must contain both `flakes` and `nix-command`. If missing:
 - **Suggestion**: See https://nixos.wiki/wiki/Flakes#Enable_flakes
 
-## 2. Nix Version
+## 3. Nix Version
 
 ```sh
 nix --version
@@ -25,7 +44,7 @@ nix --version
 Version must be ≥ 2.16.0. If older:
 - **Suggestion**: See https://nixos.asia/en/howto/nix-package
 
-## 3. Max Jobs
+## 4. Max Jobs
 
 ```sh
 nix config show 2>/dev/null | grep '^max-jobs'
@@ -34,7 +53,7 @@ nix config show 2>/dev/null | grep '^max-jobs'
 Value must be > 1 (ideally `auto`). If set to 1:
 - **Suggestion**: Set `max-jobs = auto` in `/etc/nix/nix.conf` (Linux) or `~/.config/nix/nix.conf` (macOS without nix-darwin). On NixOS use `nix.settings.max-jobs = "auto"`. On nix-darwin use the same option.
 
-## 4. Caches
+## 5. Caches
 
 ```sh
 nix config show 2>/dev/null | grep '^substituters'
@@ -43,7 +62,7 @@ nix config show 2>/dev/null | grep '^substituters'
 Must include `https://cache.nixos.org`. If the project specifies additional caches (e.g. Cachix), verify those too.
 - **Suggestion**: Add missing caches to nix.conf `substituters`. For Cachix caches run `nix run nixpkgs#cachix use <name>`.
 
-## 5. Trusted Users
+## 6. Trusted Users
 
 ```sh
 nix config show 2>/dev/null | grep '^trusted-users'
@@ -54,7 +73,7 @@ The current user (or a group they belong to, or `*`) should appear in `trusted-u
 - On NixOS: `nix.settings.trusted-users = [ "root" "<user>" ];`
 - Otherwise: add `trusted-users = root <user>` to `/etc/nix/nix.conf` and restart the daemon (`sudo pkill nix-daemon`)
 
-## 6. Direnv
+## 7. Direnv
 
 ```sh
 which direnv 2>/dev/null && readlink -f "$(which direnv)"
@@ -63,7 +82,7 @@ which direnv 2>/dev/null && readlink -f "$(which direnv)"
 Direnv should be installed and its resolved path should be inside `/nix/store/`. If not installed or installed outside Nix:
 - **Suggestion**: Install direnv via Nix (home-manager). See https://github.com/juspay/nixos-unified-template
 
-## 7. Rosetta (macOS only)
+## 8. Rosetta (macOS only)
 
 Only check on Apple Silicon Macs:
 ```sh
@@ -73,7 +92,7 @@ sysctl -n sysctl.proc_translated 2>/dev/null
 If the value is `1`, Nix is running under Rosetta emulation which slows builds:
 - **Suggestion**: Disable Rosetta for your terminal (Finder → Get Info → uncheck "Open using Rosetta"). Uninstall and reinstall Nix for `aarch64-darwin`. See https://nixos.asia/en/install
 
-## 8. Shell Dotfiles
+## 9. Shell Dotfiles
 
 Check if shell config files are managed by Nix. For each dotfile that exists, resolve its real path — it should point into `/nix/store/`:
 ```sh
