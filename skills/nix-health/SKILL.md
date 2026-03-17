@@ -105,7 +105,7 @@ which brew 2>/dev/null
 ```
 
 If Homebrew is installed, flag as ⚠️ — it can interfere with Nix environments (e.g. conflicting library paths, shadowed binaries).
-- **Suggestion**: Prefer managing packages with Nix for better reproducibility. Inventory existing packages with `brew list`, install equivalents via Nix, then consider removing Homebrew.
+- **Suggestion**: Prefer managing packages with Nix for better reproducibility. See https://nixos.asia/en/nix-first. Inventory existing packages with `brew list`, install equivalents via Nix, then consider removing Homebrew.
 
 ## 10. Shell Dotfiles
 
