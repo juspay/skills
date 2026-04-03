@@ -2,10 +2,6 @@
 
 Guidelines for AI agents contributing to this repository.
 
-## Local CI
-
-Run `vira ci -b` to verify changes before pushing.
-
 ## Skill structure
 
 Each skill lives in its own directory with a `SKILL.md` inside:
