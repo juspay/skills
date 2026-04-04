@@ -9,6 +9,7 @@ AI skill pack — reusable [SKILL.md](https://opencode.ai/docs/skills/) definiti
 | Skill | Description |
 |-------|-------------|
 | [`cargo-watch`](./skills/cargo-watch/SKILL.md) | Run cargo-watch in the background for continuous clippy feedback during code editing |
+| [`haskell`](./skills/haskell/SKILL.md) | Haskell development — error handling, type safety, idiomatic patterns, HLint, Aeson, conditional relude guidance |
 | [`nix-ci`](./skills/nix-ci/SKILL.md) | CI setup for GitHub repos — GitHub Actions or Vira |
 | [`nix-flake`](./skills/nix-flake/SKILL.md) | Writing flakes with flake-parts, formatter, shell scripts, and language templates |
 | [`nix-haskell`](./skills/nix-haskell/SKILL.md) | Haskell projects with haskell-flake: dependencies, settings, devShell, autoWire |
