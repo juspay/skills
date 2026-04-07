@@ -39,9 +39,9 @@ apm install
 
 Each skill is a standalone package — pick only what your project needs.
 
-### With OpenCode (Nix)
+### With OpenCode
 
-[juspay/AI](https://github.com/juspay/AI) bundles these skills into its oneclick OpenCode packages via a Nix flake input. Run `nix run github:juspay/AI` to get OpenCode with all skills pre-configured.
+[juspay/AI](https://github.com/juspay/AI) bundles these skills into its oneclick OpenCode packages via APM. Run `nix run github:juspay/AI` to get OpenCode with all skills pre-configured.
 
 ### Manual
 
