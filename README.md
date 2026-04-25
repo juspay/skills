@@ -14,6 +14,7 @@ AI skill pack — reusable [SKILL.md](https://opencode.ai/docs/skills/) definiti
 | [`nix-haskell`](./skills/nix-haskell/SKILL.md) | Haskell projects with haskell-flake: dependencies, settings, devShell, autoWire |
 | [`nix-health`](./skills/nix-health/SKILL.md) | Diagnosing Nix installation health — flakes, version, caches, max-jobs, direnv, and shell config |
 | [`nix-justfile`](./skills/nix-justfile/SKILL.md) | Conventions for writing justfile recipes in Nix-based projects |
+| [`nix-playwright`](./skills/nix-playwright/SKILL.md) | Run an existing Playwright e2e suite locally on NixOS via `tests/shell.nix` + justfile |
 | [`nix-rust-leptos`](./skills/nix-rust-leptos/SKILL.md) | Conventions for building Leptos CSR apps with Nix (crane + Trunk) |
 | [`nix-typescript`](./skills/nix-typescript/SKILL.md) | pnpm + Nix build conventions — fetchPnpmDeps hash management and dependency workflow |
 | [`programming-essay`](./skills/programming-essay/SKILL.md) | Write programming essays in the voice of the canon — Spolsky, Yegge, Graham, Nystrom, Brooks |
