@@ -7,7 +7,7 @@ description: Use this when adding Nix-based local runs for an existing Playwrigh
 
 For projects that already have a Playwright e2e suite (typically under `tests/`) and need it to run locally on NixOS / pure-Nix hosts, where Playwright's bundled Chromium download depends on `apt-get` + `sudo`.
 
-CI is left untouched — apt-provided Chromium on Ubuntu runners is cheaper than spinning up a Nix devshell. This skill is for **local** runs only.
+GitHub Actions CI is left untouched — apt-provided Chromium on Ubuntu runners is cheaper than spinning up a Nix devshell. This skill is for **local** runs (and Nix-based CI like Vira); GHA continues to use its own apt path.
 
 ## Add a `nixpkgs-latest` flake input
 
