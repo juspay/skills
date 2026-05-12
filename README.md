@@ -39,7 +39,7 @@ dependencies:
 apm install
 ```
 
-Each skill is a standalone package — pick only what your project needs.
+Each skill is a standalone package — pick only what your project needs. See [Kolu's `apm.yml`](https://github.com/juspay/kolu/blob/master/apm.yml) for an example.
 
 ### With OpenCode
 
