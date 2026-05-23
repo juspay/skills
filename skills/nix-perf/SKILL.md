@@ -52,6 +52,6 @@ Stop optimizing when the remaining lockfile duplicates are at *distinct* revisio
 
 ## Companion docs
 
-- `nix-flake` (this repo) — flake.nix structure conventions
+- `nix-for-dev` (this repo) — flake.nix structure conventions (zero-inputs + npins)
 - `nix-health` (this repo) — substituters, max-jobs, trusted-users checks that also gate first-fetch speed
 - [Flakes reference: input attributes](https://nix.dev/manual/nix/2.31/command-ref/new-cli/nix3-flake.html#flake-inputs) — `follows`, `flake = false`, etc.
