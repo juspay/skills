@@ -181,7 +181,30 @@ See [`nix-typescript`](../nix-typescript/SKILL.md) for `fetchPnpmDeps` and hash 
 
 ### Dev services
 
-For multi-process dev environments (server + watcher + db), invoke [`process-compose`](https://github.com/F1bonacc1/process-compose) directly from a `process-compose.yaml` plus a justfile recipe. Avoid `process-compose-flake` / `services-flake` here — they require `flake-parts` as an input and undo the zero-inputs win.
+For multi-process dev environments (server + watcher + db), use [`process-compose-flake`](https://github.com/Platonic-Systems/process-compose-flake) and [`services-flake`](https://github.com/juspay/services-flake) via their **standalone** entry points (no flake-parts needed). Both flakes have zero inputs themselves, so pinning them via npins keeps the top-level `flake.nix` zero-input too:
+
+- `process-compose-flake` exposes [`lib.evalModules` / `lib.makeProcessCompose`](https://github.com/Platonic-Systems/process-compose-flake/blob/main/nix/lib.nix) for module evaluation outside flake-parts.
+- `services-flake` exposes `processComposeModules.default` (a path) — pass it as a module to `evalModules`.
+
+```nix
+# shell.nix
+{ pkgs ? import ./nix/nixpkgs.nix { } }:
+let
+  sources = import ./npins;
+  pcLib = import "${sources.process-compose-flake}/nix/lib.nix" { inherit pkgs; };
+  servicesMod = pcLib.evalModules {
+    modules = [
+      "${sources.services-flake}/nix/process-compose"
+      { services.redis."r1".enable = true; }
+    ];
+  };
+in
+pkgs.mkShell {
+  inputsFrom = [ servicesMod.config.services.outputs.devShell ];
+}
+```
+
+Reference: [`services-flake/example/without-flake-parts`](https://github.com/juspay/services-flake/tree/main/example/without-flake-parts) and [`doc/without-flake-parts.md`](https://github.com/juspay/services-flake/blob/main/doc/without-flake-parts.md).
 
 ## Companion docs
 
