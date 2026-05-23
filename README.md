@@ -10,7 +10,7 @@ AI skill pack — reusable [SKILL.md](https://opencode.ai/docs/skills/) definiti
 |-------|-------------|
 | [`cargo-watch`](./skills/cargo-watch/SKILL.md) | Run cargo-watch in the background for continuous clippy feedback during code editing |
 | [`nix-ci`](./skills/nix-ci/SKILL.md) | CI setup for GitHub repos — GitHub Actions or Vira |
-| [`nix-flake`](./skills/nix-flake/SKILL.md) | Writing flakes with flake-parts, formatter, shell scripts, and language templates |
+| [`nix-for-dev`](./skills/nix-for-dev/SKILL.md) | Fast `nix develop` setup — zero-inputs `flake.nix`, npins, sub-flakes for non-user-facing Nix |
 | [`nix-haskell`](./skills/nix-haskell/SKILL.md) | Haskell projects with haskell-flake: dependencies, settings, devShell, autoWire |
 | [`nix-health`](./skills/nix-health/SKILL.md) | Diagnosing Nix installation health — flakes, version, caches, max-jobs, direnv, and shell config |
 | [`nix-justfile`](./skills/nix-justfile/SKILL.md) | Conventions for writing justfile recipes in Nix-based projects |
@@ -31,7 +31,7 @@ Install individual skills using [APM](https://microsoft.github.io/apm/) virtual 
 # apm.yml
 dependencies:
   apm:
-    - juspay/skills/skills/nix-flake
+    - juspay/skills/skills/nix-for-dev
     - juspay/skills/skills/nix-haskell
     - juspay/skills/skills/nix-ci
 ```
