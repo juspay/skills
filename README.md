@@ -6,9 +6,10 @@ AI skill pack — reusable [SKILL.md](https://opencode.ai/docs/skills/) definiti
 
 ## Skills
 
+### Nix
+
 | Skill | Description |
 |-------|-------------|
-| [`cargo-watch`](./skills/cargo-watch/SKILL.md) | Run cargo-watch in the background for continuous clippy feedback during code editing |
 | [`nix-ci`](./skills/nix-ci/SKILL.md) | CI setup for GitHub repos — GitHub Actions or Vira |
 | [`nix-for-dev`](./skills/nix-for-dev/SKILL.md) | Fast `nix develop` setup — zero-inputs `flake.nix`, npins, sub-flakes for non-user-facing Nix |
 | [`nix-haskell`](./skills/nix-haskell/SKILL.md) | Haskell projects with haskell-flake: dependencies, settings, devShell, autoWire |
@@ -18,8 +19,19 @@ AI skill pack — reusable [SKILL.md](https://opencode.ai/docs/skills/) definiti
 | [`nix-playwright`](./skills/nix-playwright/SKILL.md) | Run an existing Playwright e2e suite locally on NixOS via `tests/shell.nix` + justfile |
 | [`nix-rust-leptos`](./skills/nix-rust-leptos/SKILL.md) | Conventions for building Leptos CSR apps with Nix (crane + Trunk) |
 | [`nix-typescript`](./skills/nix-typescript/SKILL.md) | pnpm + Nix build conventions — fetchPnpmDeps hash management and dependency workflow |
+
+### Writing
+
+| Skill | Description |
+|-------|-------------|
 | [`pg`](./skills/pg/SKILL.md) | Write essays, articles, and blog posts in Paul Graham's voice — plain, spoken prose that reasons out loud, not AI filler |
 | [`programming-essay`](./skills/programming-essay/SKILL.md) | Write programming essays in the voice of the canon — Spolsky, Yegge, Graham, Nystrom, Brooks |
+
+### Tooling
+
+| Skill | Description |
+|-------|-------------|
+| [`cargo-watch`](./skills/cargo-watch/SKILL.md) | Run cargo-watch in the background for continuous clippy feedback during code editing |
 | [`vhs`](./skills/vhs/SKILL.md) | Deterministic terminal demo screencasts with VHS and wait patterns |
 
 ## Usage
