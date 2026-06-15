@@ -10,6 +10,7 @@ AI skill pack — reusable [SKILL.md](https://opencode.ai/docs/skills/) definiti
 
 | Skill | Description |
 |-------|-------------|
+| [`nix-bun`](./skills/nix-bun/SKILL.md) | Bun + Nix via bun2nix — bun.nix dependency workflow, the `bun --compile` pitfall, CI drift check |
 | [`nix-ci`](./skills/nix-ci/SKILL.md) | CI setup for GitHub repos — GitHub Actions or Vira |
 | [`nix-for-dev`](./skills/nix-for-dev/SKILL.md) | Fast `nix develop` setup — zero-inputs `flake.nix`, npins, sub-flakes for non-user-facing Nix |
 | [`nix-haskell`](./skills/nix-haskell/SKILL.md) | Haskell projects with haskell-flake: dependencies, settings, devShell, autoWire |
