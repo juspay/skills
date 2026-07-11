@@ -9,6 +9,20 @@ Wire a GitHub repo into the shared Attic cache at [`cache.nixos.asia/oss`](https
 
 Three pieces are needed: the cache as a **substituter** (so the repo _pulls_ from it), a **workflow** (so CI _pushes_ to it), and the **`ATTIC_TOKEN` secret** (so the push authenticates). Do all three.
 
+## Initial setup questionnaire
+
+Before touching any files, use the **Ask tool** (`AskUserQuestion`) to gather both decisions up front:
+
+1. **Push token** — do you already have an `ATTIC_TOKEN` (a push token for the `oss` cache)?
+   - **Yes, I have it** — proceed; you'll set it as a secret in step 3.
+   - **Not yet** — the token is issued by the cache admin (Juspay infra) via `atticadm make-token`, scoped to push the `oss` cache. **Stop and get one from the maintainer/admin before continuing** — the workflow is useless without it.
+
+2. **Trigger scope** — which branches should trigger a build-and-push?
+   - **Default branch only** — push on the default branch (`main`/`master`) plus `pull_request` and `workflow_dispatch`. Warms the cache from merged, reviewed code. Recommended for most repos.
+   - **All branches** — push on every branch too, so feature branches warm the cache. Costs more CI minutes and can push closures from unreviewed code.
+
+Carry both answers into the steps below.
+
 ## 1. Add the cache as a substituter
 
 In the repo's top-level `flake.nix`, add (or extend) `nixConfig`:
@@ -22,12 +36,7 @@ nixConfig = {
 
 ## 2. Add the workflow
 
-Before writing the file, use the **Ask tool** (`AskUserQuestion`) to ask which branches should trigger a build-and-push:
-
-- **Default branch only** — push on the default branch (`main`/`master`) plus `pull_request` and `workflow_dispatch`. Warms the cache from merged, reviewed code. Recommended for most repos.
-- **All branches** — push on every branch as well, so feature branches warm the cache too. Costs more CI minutes and can push closures from unreviewed code.
-
-Set the `on:` triggers to match the answer. The template below is the default-branch-only variant.
+Set the `on:` triggers to match the **trigger scope** answer from the questionnaire. The template below is the default-branch-only variant.
 
 ### Already have a `nix build` workflow? Piggyback on it.
 
@@ -103,9 +112,7 @@ Rules:
 
 ## 3. Set the ATTIC_TOKEN secret
 
-The token is a **push token** issued by the cache admin (Juspay infra) via `atticadm make-token`. Ask the maintainer/admin for one scoped to push the `oss` cache if you don't have it.
-
-Once the user has the token, **prompt them to run** (never paste the token into the repo or a command line that gets logged):
+Use the `ATTIC_TOKEN` from the questionnaire. **Prompt the user to run** (never paste the token into the repo or a command line that gets logged):
 
 ```bash
 gh secret set ATTIC_TOKEN --repo <owner>/<repo>
