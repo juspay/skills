@@ -72,7 +72,6 @@ jobs:
       fail-fast: false
       matrix:
         # ubuntu-latest → x86_64-linux; macos-latest → aarch64-darwin.
-        # Drop macos-latest if the repo is Linux-only.
         os: [ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
@@ -100,7 +99,6 @@ jobs:
 Rules:
 
 - For **default branch only**, set the `push.branches` filter to the repo's actual default branch (kolu uses `master`; many repos use `main`). For **all branches**, drop the `branches:` filter so `push:` fires everywhere.
-- Drop `macos-latest` from the matrix if the repo has no Darwin consumers — building on macOS runners is slower and often unnecessary.
 - Keep both actions **pinned by commit SHA** (CodeQL flags unpinned third-party actions). The `# v35` / `# v0.5.0` trailing comments record the tag. Prefer the SHAs above unless a newer release is needed; do not replace them with floating tags.
 
 ## 3. Set the ATTIC_TOKEN secret
