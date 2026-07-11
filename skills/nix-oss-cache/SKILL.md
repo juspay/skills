@@ -29,6 +29,22 @@ Before writing the file, use the **Ask tool** (`AskUserQuestion`) to ask which b
 
 Set the `on:` triggers to match the answer. The template below is the default-branch-only variant.
 
+### Already have a `nix build` workflow? Piggyback on it.
+
+If the repo already has a workflow that runs `nix build` (e.g. a CI job), **don't add a second one** — just drop the `ryanccn/attic-action` step into the existing job, *before* the build step, so its end-of-job hook pushes whatever that job builds:
+
+```yaml
+      - uses: ryanccn/attic-action@5635a15ef0c5462194ffbd05d1daeddc74625c3a # v0.5.0
+        with:
+          endpoint: https://cache.nixos.asia
+          cache: oss
+          token: ${{ secrets.ATTIC_TOKEN }}
+```
+
+The action pushes every store path realised during the job, so no explicit push step is needed. Only create the standalone `nix-cache.yml` below when there's no existing build job to hook into. (Note: if the existing job uses the DeterminateSystems installer rather than `nix-quick-install-action`, verify attic-action still finds a new-enough Nix for `nix profile add`.)
+
+### Standalone workflow
+
 Create `.github/workflows/nix-cache.yml`. `ryanccn/attic-action` handles install, login, substituter config, and pushing every store path the job produced at job end.
 
 ```yaml
