@@ -11,17 +11,12 @@ Three pieces are needed: the cache as a **substituter** (so the repo _pulls_ fro
 
 ## Initial setup questionnaire
 
-Before touching any files, use the **Ask tool** (`AskUserQuestion`) to gather both decisions up front:
+Before touching any files, use the **Ask tool** (`AskUserQuestion`) to settle the **trigger scope** — which branches should trigger a build-and-push?
 
-1. **Push token** — do you already have an `ATTIC_TOKEN` (a push token for the `oss` cache)?
-   - **Yes, I have it** — proceed; you'll set it as a secret in step 3.
-   - **Not yet** — the token is issued by the cache admin (Juspay infra) via `atticadm make-token`, scoped to push the `oss` cache. **Stop and get one from the maintainer/admin before continuing** — the workflow is useless without it.
+- **Default branch only** — push on the default branch (`main`/`master`) plus `pull_request` and `workflow_dispatch`. Warms the cache from merged, reviewed code. Recommended for most repos.
+- **All branches** — push on every branch too, so feature branches warm the cache. Costs more CI minutes and can push closures from unreviewed code.
 
-2. **Trigger scope** — which branches should trigger a build-and-push?
-   - **Default branch only** — push on the default branch (`main`/`master`) plus `pull_request` and `workflow_dispatch`. Warms the cache from merged, reviewed code. Recommended for most repos.
-   - **All branches** — push on every branch too, so feature branches warm the cache. Costs more CI minutes and can push closures from unreviewed code.
-
-Carry both answers into the steps below.
+Assume the user already has an `ATTIC_TOKEN` push token (they obtain it from the cache admin — Juspay infra — via `atticadm make-token`, scoped to the `oss` cache). Don't block on it here; step 3 confirms it's set on the repo and loops until it is.
 
 ## 1. Add the cache as a substituter
 
@@ -112,13 +107,19 @@ Rules:
 
 ## 3. Set the ATTIC_TOKEN secret
 
-Use the `ATTIC_TOKEN` from the questionnaire. **Prompt the user to run** (never paste the token into the repo or a command line that gets logged):
+The token is a repo secret you can't set for the user — it's their token, entered interactively so it stays out of shell history. **Give them this command and ask them to run it**, then confirm:
 
 ```bash
 gh secret set ATTIC_TOKEN --repo <owner>/<repo>
 ```
 
-`gh` prompts for the value interactively so it stays out of shell history. Confirm with `gh secret list --repo <owner>/<repo>` — the workflow fails loudly without this secret; there is no silent skip.
+`gh` prompts for the value interactively (never paste the token into a command line that gets logged). After they say they've run it, **re-check** and **re-ask until it's present**:
+
+```bash
+gh secret list --repo <owner>/<repo>   # ATTIC_TOKEN should appear
+```
+
+If it's missing, tell them and ask again — loop until `gh secret list` shows `ATTIC_TOKEN`. The workflow fails loudly without this secret; there is no silent skip.
 
 ## Verify
 
