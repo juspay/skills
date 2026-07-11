@@ -22,6 +22,13 @@ nixConfig = {
 
 ## 2. Add the workflow
 
+Before writing the file, use the **Ask tool** (`AskUserQuestion`) to ask which branches should trigger a build-and-push:
+
+- **Default branch only** — push on the default branch (`main`/`master`) plus `pull_request` and `workflow_dispatch`. Warms the cache from merged, reviewed code. Recommended for most repos.
+- **All branches** — push on every branch as well, so feature branches warm the cache too. Costs more CI minutes and can push closures from unreviewed code.
+
+Set the `on:` triggers to match the answer. The template below is the default-branch-only variant.
+
 Create `.github/workflows/nix-cache.yml`. `ryanccn/attic-action` handles install, login, substituter config, and pushing every store path the job produced at job end.
 
 ```yaml
@@ -76,7 +83,7 @@ jobs:
 
 Rules:
 
-- Set the `push.branches` filter to the repo's actual default branch (kolu uses `master`; many repos use `main`).
+- For **default branch only**, set the `push.branches` filter to the repo's actual default branch (kolu uses `master`; many repos use `main`). For **all branches**, drop the `branches:` filter so `push:` fires everywhere.
 - Drop `macos-latest` from the matrix if the repo has no Darwin consumers — building on macOS runners is slower and often unnecessary.
 - Keep both actions **pinned by commit SHA** (CodeQL flags unpinned third-party actions). The `# v35` / `# v0.5.0` trailing comments record the tag. Prefer the SHAs above unless a newer release is needed; do not replace them with floating tags.
 
