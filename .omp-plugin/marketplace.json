@@ -1,0 +1,24 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "juspay",
+  "owner": {
+    "name": "Juspay Technologies"
+  },
+  "metadata": {
+    "description": "Juspay's skill pack for coding agents",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "juspay-skills",
+      "description": "Nix, writing, and tooling skills for coding agents",
+      "source": "./",
+      "category": "development",
+      "license": "MIT",
+      "homepage": "https://github.com/juspay/skills",
+      "repository": "https://github.com/juspay/skills",
+      "author": { "name": "Juspay Technologies" },
+      "keywords": ["nix", "haskell", "rust", "writing", "skills"]
+    }
+  ]
+}

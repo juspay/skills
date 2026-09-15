@@ -38,6 +38,35 @@ AI skill pack — reusable [SKILL.md](https://opencode.ai/docs/skills/) definiti
 
 ## Usage
 
+This repository is also a **plugin marketplace**. The repo root is itself the
+`juspay-skills` plugin (its `skills/` directory is the skill root, declared by
+the `omp` manifest in `package.json`), and the catalogs at
+`.omp-plugin/marketplace.json` and `.claude-plugin/marketplace.json` list it.
+
+### With Oh My Pi (omp)
+
+```
+/marketplace add juspay/skills
+/marketplace install juspay-skills@juspay
+```
+
+Or from the command line:
+
+```bash
+omp plugin marketplace add juspay/skills
+omp plugin install juspay-skills@juspay
+```
+
+Every skill in this repo becomes available as `/skill:<name>`. Run
+`/reload-plugins` to pick them up without restarting the session.
+
+### With Claude Code
+
+```
+/plugin marketplace add juspay/skills
+/plugin install juspay-skills@juspay
+```
+
 ### With APM (Claude Code, Cursor, Copilot)
 
 Install individual skills using [APM](https://microsoft.github.io/apm/) virtual subdirectory references:
