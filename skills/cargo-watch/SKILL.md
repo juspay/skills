@@ -1,7 +1,6 @@
 ---
 name: cargo-watch
 description: Run cargo-watch in the background for continuous clippy feedback during code editing.
-user-invocable: false
 ---
 
 # Cargo Watch

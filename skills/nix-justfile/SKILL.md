@@ -1,7 +1,6 @@
 ---
 name: nix-justfile
 description: Conventions for writing justfile recipes in Nix-based projects.
-user-invocable: false
 ---
 
 # Justfile in Nix projects

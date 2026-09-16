@@ -1,7 +1,6 @@
 ---
 name: nix-rust-leptos
 description: Conventions for building Leptos CSR apps with Nix (crane + Trunk).
-user-invocable: false
 ---
 
 # Leptos CSR + Nix Build

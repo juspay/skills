@@ -1,7 +1,6 @@
 ---
 name: nix-typescript
 description: pnpm + Nix build conventions. Covers fetchPnpmDeps hash management and dependency workflow.
-user-invocable: false
 ---
 
 # TypeScript + Nix (pnpm)
