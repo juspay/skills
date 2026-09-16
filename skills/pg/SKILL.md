@@ -7,7 +7,6 @@ description: >-
   Graham", "in PG's style", or to make a piece read like a person thinking
   on the page rather than generated text. Built from a stylistic model of
   18 of his essays (see SOURCES.md).
-argument-hint: "<topic, or a draft to rewrite in PG's style>"
 ---
 
 # Write Like Paul Graham

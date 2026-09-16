@@ -1,0 +1,10 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "juspay-skills",
+  "description": "Nix, writing, and tooling skills for coding agents",
+  "author": { "name": "Juspay Technologies" },
+  "homepage": "https://github.com/juspay/skills",
+  "repository": "https://github.com/juspay/skills",
+  "license": "MIT",
+  "keywords": ["nix", "haskell", "rust", "writing", "skills"]
+}
