@@ -6,8 +6,5 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/juspay/skills.git"
-  },
-  "omp": {
-    "skills": "./skills"
   }
 }

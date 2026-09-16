@@ -38,10 +38,15 @@ AI skill pack — reusable [SKILL.md](https://opencode.ai/docs/skills/) definiti
 
 ## Usage
 
-This repository is also a **plugin marketplace**. The repo root is itself the
-`juspay-skills` plugin (its `skills/` directory is the skill root, declared by
-the `omp` manifest in `package.json`), and the catalogs at
-`.omp-plugin/marketplace.json` and `.claude-plugin/marketplace.json` list it.
+This repository is an [Agent Plugins](https://agent-plugins.org/) package
+([spec 1.0.0](https://agent-plugins.org/specification/)). The repo root carries
+`plugin.json` and each `skills/<name>/SKILL.md` is a skill, so **any client that
+implements the standard can load this repo as a plugin** — no client-specific
+wiring needed.
+
+It is also a **plugin marketplace**: the catalogs at `.omp-plugin/marketplace.json`
+and `.claude-plugin/marketplace.json` list the repo root as the `juspay-skills`
+plugin.
 
 ### With Oh My Pi (omp)
 
@@ -57,6 +62,12 @@ omp plugin marketplace add juspay/skills
 omp plugin install juspay-skills@juspay
 ```
 
+To use a local checkout without installing, point omp at it directly:
+
+```bash
+omp -e /path/to/skills
+```
+
 Every skill in this repo becomes available as `/skill:<name>`. Run
 `/reload-plugins` to pick them up without restarting the session.
 
@@ -66,6 +77,12 @@ Every skill in this repo becomes available as `/skill:<name>`. Run
 /plugin marketplace add juspay/skills
 /plugin install juspay-skills@juspay
 ```
+
+### With any other Agent Plugins client
+
+Point the client at a checkout of this repo (or install it from the marketplace
+catalog); it will find `plugin.json` at the root and load every skill under
+`skills/`.
 
 ### With APM (Claude Code, Cursor, Copilot)
 

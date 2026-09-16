@@ -13,6 +13,12 @@ Each skill lives in its own directory with a `SKILL.md` inside:
 ## SKILL.md rules
 
 - YAML frontmatter is required: `name` and `description`
+- The frontmatter schema is **closed** — the only fields the
+  [Agent Skills spec](https://agentskills.io/specification) allows are `name`,
+  `description`, `license`, `compatibility`, `metadata`, and `allowed-tools`.
+  Any other key (e.g. `user-invocable`, `argument-hint`) makes the skill invalid
+  and Agent Plugins clients will skip it; put client-specific extras under
+  `metadata` instead
 - `name` **must match the directory name** exactly (lowercase alphanumeric, hyphens allowed)
 - `description` is 1–1024 characters; write it as a trigger signal — "use this when..."
 - Keep content **concise and directive** — no code examples unless essential
