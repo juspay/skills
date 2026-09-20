@@ -1,4 +1,4 @@
-# Share runtime and canary composition without locking harnesses into this profile.
+# The default app and CI both build this, so CI tests what users run.
 # Run locally: nix build --impure --refresh -f compose.nix picker omp codex claude
 let
   distro = builtins.getFlake "github:juspay/agent-distro";

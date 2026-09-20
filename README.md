@@ -48,9 +48,15 @@ It is also a **plugin marketplace**: the catalogs at `.omp-plugin/marketplace.js
 and `.claude-plugin/marketplace.json` list the repo root as the `juspay-skills`
 plugin.
 
-### Nix profile (agent-distro)
+### Run with Nix (agent-distro)
 
-Launch the harness picker, or select a harness in scripts:
+Launch the Juspay distribution: Oh My Pi, Codex, and Claude Code with these
+skills and Kolu; OMP uses the Juspay gateway and needs `LITELLM_API_KEY`.
+Harness versions come from agent-distro's latest commit at run time (subject to
+Nix's fetch cache), not this repo's lock, so pinning this profile does not pin
+the harness versions.
+
+Open the harness picker, or select a harness in scripts:
 
 ```bash
 nix run github:juspay/skills
