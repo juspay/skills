@@ -48,6 +48,22 @@ It is also a **plugin marketplace**: the catalogs at `.omp-plugin/marketplace.js
 and `.claude-plugin/marketplace.json` list the repo root as the `juspay-skills`
 plugin.
 
+### Nix profile (agent-distro)
+
+The flake's `outputs.profile` exports system-independent Juspay profile data:
+these skills, Kolu, and the Juspay gateway settings. Compose it with
+[agent-distro](https://github.com/juspay/agent-distro) in your own flake:
+
+```nix
+inputs.agent-distro.url = "github:juspay/agent-distro";
+inputs.skills.url = "github:juspay/skills";
+# …
+agent-distro.lib.mkLaunchers { inherit pkgs; profile = skills.profile; }
+```
+
+A `nix run github:juspay/agent-distro juspay/skills` form is planned; it is not
+available yet.
+
 ### With Oh My Pi (omp)
 
 ```

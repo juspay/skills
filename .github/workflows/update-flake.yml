@@ -1,0 +1,67 @@
+name: Update Flake
+
+on:
+  schedule:
+    - cron: '0 11 * * 1'
+  workflow_dispatch:
+
+concurrency:
+  group: update-flake
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    outputs:
+      pr: ${{ steps.update.outputs.pull-request-number }}
+      sha: ${{ steps.update.outputs.pull-request-head-sha }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: nixbuild/nix-quick-install-action@v34
+        with:
+          nix_conf: |
+            access-tokens = github.com=${{ github.token }}
+
+      - name: Update Kolu
+        run: nix flake update
+
+      - uses: peter-evans/create-pull-request@v8
+        id: update
+        with:
+          branch: update_flake_lock_action
+          delete-branch: true
+          add-paths: flake.lock
+          title: 'chore(flake): update Kolu'
+          body: Update the Kolu plugin pin. The shared CI builds all launchers against live agent-distro before merging.
+          commit-message: 'chore(flake): update Kolu'
+
+  # GITHUB_TOKEN PRs do not trigger CI, so verify the proposed commit explicitly.
+  verify:
+    needs: update
+    if: needs.update.outputs.pr != ''
+    permissions:
+      contents: read
+      actions: write
+    uses: ./.github/workflows/ci.yml
+    with:
+      ref: ${{ needs.update.outputs.sha }}
+
+  merge:
+    needs: [update, verify]
+    if: needs.update.outputs.pr != ''
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Merge the verified Kolu bump
+        run: gh pr merge --squash --delete-branch --match-head-commit "$PR_SHA" "$PR_NUMBER"
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ needs.update.outputs.pr }}
+          PR_SHA: ${{ needs.update.outputs.sha }}

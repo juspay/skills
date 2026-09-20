@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  workflow_call:
+    inputs:
+      ref:
+        description: Git ref to check out and build (defaults to the triggering ref)
+        type: string
+        required: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref || github.ref }}
+
+      - uses: nixbuild/nix-quick-install-action@v34
+        with:
+          nix_conf: |
+            accept-flake-config = true
+            access-tokens = github.com=${{ github.token }}
+            extra-substituters = https://cache.nixos.asia/oss
+            extra-trusted-public-keys = oss:KO872wNJkCDgmGN3xy9dT89WAhvv13EiKncTtHDItVU=
+
+      - uses: nix-community/cache-nix-action@v6
+        with:
+          primary-key: nix-${{ runner.os }}-${{ hashFiles('flake.lock', '**/*.nix') }}-${{ github.run_id }}
+          restore-prefixes-first-match: nix-${{ runner.os }}-
+          gc-max-store-size-linux: 5G
+          purge: true
+          purge-prefixes: nix-${{ runner.os }}-
+          purge-last-accessed: 604800
+          purge-primary-key: never
+
+      - name: Check the profile contract
+        run: nix eval .#profile --json | jq -e '.name == "juspay" and (.plugins | length == 2)'
+
+      - name: Build against live agent-distro
+        run: nix build --impure --refresh --print-build-logs -f ci/compose.nix picker omp codex claude
+
+      - name: Smoke-test the picker
+        run: AI_HARNESS=omp AI_GATEWAY=0 ./result/bin/ai --version
+
+      - name: Check the lock stayed unchanged
+        run: git diff --exit-code -- flake.lock

@@ -1,0 +1,27 @@
+{
+  "nodes": {
+    "kolu": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1789671174,
+        "narHash": "sha256-r1mjSGdbQPS5qmrasS5CNkiw81qoTQOp/Eg+tFXcmJg=",
+        "owner": "juspay",
+        "repo": "kolu",
+        "rev": "c55e73851b7044ad928415b06c7b72767ce5cde7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "juspay",
+        "repo": "kolu",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "kolu": "kolu"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
