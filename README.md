@@ -50,6 +50,13 @@ plugin.
 
 ### Nix profile (agent-distro)
 
+Launch the harness picker, or select a harness in scripts:
+
+```bash
+nix run github:juspay/skills
+AI_HARNESS=omp AI_GATEWAY=0 nix run github:juspay/skills -- --version
+```
+
 The flake's `outputs.profile` exports system-independent Juspay profile data:
 these skills, Kolu, and the Juspay gateway settings. Compose it with
 [agent-distro](https://github.com/juspay/agent-distro) in your own flake:
@@ -60,9 +67,6 @@ inputs.skills.url = "github:juspay/skills";
 # …
 agent-distro.lib.mkLaunchers { inherit pkgs; profile = skills.profile; }
 ```
-
-A `nix run github:juspay/agent-distro juspay/skills` form is planned; it is not
-available yet.
 
 ### With Oh My Pi (omp)
 

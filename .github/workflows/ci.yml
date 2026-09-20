@@ -33,7 +33,7 @@ jobs:
         run: nix eval .#profile --json | jq -e '.name == "juspay" and (.plugins | length == 2) and .gateway.url != null'
 
       - name: Build against live agent-distro
-        run: nix build --impure --refresh --print-build-logs -f ci/compose.nix picker omp codex claude
+        run: nix build --impure --refresh --print-build-logs -f compose.nix picker omp codex claude
 
-      - name: Smoke-test the picker
-        run: AI_HARNESS=omp AI_GATEWAY=0 ./result/bin/ai --version
+      - name: Smoke-test the default app
+        run: AI_HARNESS=omp AI_GATEWAY=0 nix run . -- --version

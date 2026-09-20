@@ -27,7 +27,8 @@ jobs:
           github_access_token: ${{ github.token }}
 
       - name: Update Kolu
-        run: nix flake update
+        # Avoid a weekly nixpkgs tarball download for an unchanged shell wrapper.
+        run: nix flake update kolu
 
       - uses: peter-evans/create-pull-request@v8
         id: update
