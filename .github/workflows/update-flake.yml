@@ -2,7 +2,8 @@ name: Update Flake
 
 on:
   schedule:
-    - cron: '0 11 * * 1'
+    # agent-plugin/ changes rarely; run weekly, offset from agent-distro's update.
+    - cron: '30 12 * * 1'
   workflow_dispatch:
 
 concurrency:
@@ -21,10 +22,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: nixbuild/nix-quick-install-action@v34
+      - uses: cachix/install-nix-action@v31
         with:
-          nix_conf: |
-            access-tokens = github.com=${{ github.token }}
+          github_access_token: ${{ github.token }}
 
       - name: Update Kolu
         run: nix flake update
@@ -45,11 +45,12 @@ jobs:
     if: needs.update.outputs.pr != ''
     permissions:
       contents: read
-      actions: write
     uses: ./.github/workflows/ci.yml
     with:
       ref: ${{ needs.update.outputs.sha }}
 
+  # Requires the github-actions app to be a main ruleset bypass actor:
+  # these bot commits do not receive the required Vira signoffs.
   merge:
     needs: [update, verify]
     if: needs.update.outputs.pr != ''

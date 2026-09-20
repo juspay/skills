@@ -1,5 +1,5 @@
 {
-  description = "Juspay agent-distro profile";
+  description = "Juspay skills, and the agent-distro profile that ships them";
 
   nixConfig = {
     extra-substituters = "https://cache.nixos.asia/oss";
