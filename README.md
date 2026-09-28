@@ -1,10 +1,21 @@
 # skills
 
-AI skill pack — reusable [SKILL.md](https://opencode.ai/docs/skills/) definitions for coding agents.
+**Juspay's skill pack for coding agents.** Skills for Nix, writing, and
+tooling, plus a NixOS lookup server, packaged once as an
+[Agent Plugin](https://agent-plugins.org/) and loadable by Oh My Pi, Codex, and
+Claude Code.
+
+```sh
+AI_PROFILE=juspay nix run github:juspay/agent-distro
+```
+
+That runs the agent of your choice with everything here preloaded, through
+[agent-distro](https://github.com/juspay/agent-distro). To add the pack to an
+agent you already have, see [Install](#install).
 
 <img width="549" height="503" alt="image" src="https://github.com/user-attachments/assets/95f1ac62-fd85-422f-93e5-918042bff00d" />
 
-## Skills
+## What's inside
 
 ### Nix
 
@@ -35,58 +46,55 @@ AI skill pack — reusable [SKILL.md](https://opencode.ai/docs/skills/) definiti
 |-------|-------------|
 | [`cargo-watch`](./skills/cargo-watch/SKILL.md) | Run cargo-watch in the background for continuous clippy feedback during code editing |
 | [`vhs`](./skills/vhs/SKILL.md) | Deterministic terminal demo screencasts with VHS and wait patterns |
+| [`waterfall`](./skills/waterfall/SKILL.md) | Implement anything end-to-end using two agents: a planner cum reviewer and an implementer. Requires [Kolu](https://kolu.dev) |
 
-## Usage
+### MCP servers
 
-This repository is an [Agent Plugins](https://agent-plugins.org/) package
-([spec 1.0.0](https://agent-plugins.org/specification/)). The repo root carries
-`plugin.json` and each `skills/<name>/SKILL.md` is a skill, so **any client that
-implements the standard can load this repo as a plugin** — no client-specific
-wiring needed.
+| Server | Description |
+|--------|-------------|
+| `nixos` | [mcp-nixos](https://github.com/utensils/mcp-nixos) — look up packages, versions, and NixOS / Home Manager options instead of guessing them |
 
-It is also a **plugin marketplace**: the catalogs at `.omp-plugin/marketplace.json`
+The server is declared in [`mcp.json`](./mcp.json) and started with `nix run`,
+so it needs Nix on `PATH`. It is pinned to a release tag; the first start
+fetches and builds it, which can take a minute. Without Nix the server fails to
+start and the skills load as usual.
+
+## Install
+
+This repository is an Agent Plugins package
+([spec 1.0.0](https://agent-plugins.org/specification/)): `plugin.json` at the
+root, a skill in each `skills/<name>/SKILL.md`, and MCP servers in `mcp.json`.
+Any client that implements the standard can load it as is.
+
+It is also a plugin marketplace: the catalogs at `.omp-plugin/marketplace.json`
 and `.claude-plugin/marketplace.json` list the repo root as the `juspay-skills`
 plugin.
 
-### With Oh My Pi (omp)
+| Client | How |
+|--------|-----|
+| Any of Oh My Pi, Codex, Claude Code | `AI_PROFILE=juspay nix run github:juspay/agent-distro` |
+| Oh My Pi | `omp plugin marketplace add juspay/skills`, then `omp plugin install juspay-skills@juspay` |
+| Claude Code | `/plugin marketplace add juspay/skills`, then `/plugin install juspay-skills@juspay` |
+| Another Agent Plugins client | Point it at a checkout of this repo |
+| OpenCode | `nix run github:juspay/AI` ([juspay/AI](https://github.com/juspay/AI) bundles these skills via APM) |
 
-```
-/marketplace add juspay/skills
-/marketplace install juspay-skills@juspay
-```
+### Oh My Pi
 
-Or from the command line:
-
-```bash
-omp plugin marketplace add juspay/skills
-omp plugin install juspay-skills@juspay
-```
-
-To use a local checkout without installing, point omp at it directly:
+The same two commands work inside a session as `/marketplace add juspay/skills`
+and `/marketplace install juspay-skills@juspay`. To use a local checkout
+without installing:
 
 ```bash
 omp -e /path/to/skills
 ```
 
-Every skill in this repo becomes available as `/skill:<name>`. Run
-`/reload-plugins` to pick them up without restarting the session.
+Every skill becomes available as `/skill:<name>`. Run `/reload-plugins` to pick
+up changes without restarting the session.
 
-### With Claude Code
+### Individual skills with APM
 
-```
-/plugin marketplace add juspay/skills
-/plugin install juspay-skills@juspay
-```
-
-### With any other Agent Plugins client
-
-Point the client at a checkout of this repo (or install it from the marketplace
-catalog); it will find `plugin.json` at the root and load every skill under
-`skills/`.
-
-### With APM (Claude Code, Cursor, Copilot)
-
-Install individual skills using [APM](https://microsoft.github.io/apm/) virtual subdirectory references:
+[APM](https://microsoft.github.io/apm/) installs skills one at a time, for
+Claude Code, Cursor, and Copilot, using virtual subdirectory references:
 
 ```yaml
 # apm.yml
@@ -101,12 +109,16 @@ dependencies:
 apm install
 ```
 
-Each skill is a standalone package — pick only what your project needs. See [Kolu's `apm.yml`](https://github.com/juspay/kolu/blob/master/apm.yml) for an example.
-
-### With OpenCode
-
-[juspay/AI](https://github.com/juspay/AI) bundles these skills into its oneclick OpenCode packages via APM. Run `nix run github:juspay/AI` to get OpenCode with all skills pre-configured.
+Each skill is a standalone package, so pick only what your project needs. See
+[Kolu's `apm.yml`](https://github.com/juspay/kolu/blob/master/apm.yml) for an
+example.
 
 ### Manual
 
-Copy any `skills/<name>/SKILL.md` into your agent's skills directory (e.g., `.claude/skills/<name>/SKILL.md` for Claude Code).
+Copy any `skills/<name>/SKILL.md` into your agent's skills directory, for
+example `.claude/skills/<name>/SKILL.md` for Claude Code.
+
+## Contributing
+
+See [AGENTS.md](./AGENTS.md) for the skill format and rules. When adding a
+skill, add it to the tables above.
