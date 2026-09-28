@@ -54,10 +54,11 @@ agent you already have, see [Install](#install).
 |--------|-------------|
 | `nixos` | [mcp-nixos](https://github.com/utensils/mcp-nixos) — look up packages, versions, and NixOS / Home Manager options instead of guessing them |
 
-The server is declared in [`mcp.json`](./mcp.json) and started with `nix run`,
-so it needs Nix on `PATH`. It is pinned to a release tag; the first start
-fetches and builds it, which can take a minute. Without Nix the server fails to
-start and the skills load as usual.
+The server is declared in [`mcp.json`](./mcp.json) by bare command, so it
+needs `mcp-nixos` on `PATH`. [agent-distro](https://github.com/juspay/agent-distro)'s
+`juspay` profile supplies it, prebuilt; elsewhere, install it yourself, for
+example with `nix profile install nixpkgs#mcp-nixos`. Without it the server
+fails to start and the skills load as usual.
 
 ## Install
 
