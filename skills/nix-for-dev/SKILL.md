@@ -206,6 +206,10 @@ pkgs.mkShell {
 
 Reference: [`services-flake/example/without-flake-parts`](https://github.com/juspay/services-flake/tree/main/example/without-flake-parts) and [`doc/without-flake-parts.md`](https://github.com/juspay/services-flake/blob/main/doc/without-flake-parts.md).
 
+## Looking things up
+
+When the `nixos` MCP server is available, use it to look up package names, versions, and NixOS / Home Manager options instead of guessing them.
+
 ## Companion docs
 
 - [`nix-perf`](../nix-perf/SKILL.md) — diagnosing slow `nix develop` / `nix flake archive`
