@@ -77,7 +77,7 @@ plugin.
 | Oh My Pi | `omp plugin marketplace add juspay/skills`, then `omp plugin install juspay-skills@juspay` |
 | Claude Code | `/plugin marketplace add juspay/skills`, then `/plugin install juspay-skills@juspay` |
 | Another Agent Plugins client | Point it at a checkout of this repo |
-| OpenCode | `nix run github:juspay/AI` ([juspay/AI](https://github.com/juspay/AI) bundles these skills via APM) |
+| OpenCode | `nix run github:juspay/AI` ([juspay/AI](https://github.com/juspay/AI) bundles these skills) |
 
 ### Oh My Pi
 
@@ -91,28 +91,6 @@ omp -e /path/to/skills
 
 Every skill becomes available as `/skill:<name>`. Run `/reload-plugins` to pick
 up changes without restarting the session.
-
-### Individual skills with APM
-
-[APM](https://microsoft.github.io/apm/) installs skills one at a time, for
-Claude Code, Cursor, and Copilot, using virtual subdirectory references:
-
-```yaml
-# apm.yml
-dependencies:
-  apm:
-    - juspay/skills/skills/nix-for-dev
-    - juspay/skills/skills/nix-haskell
-    - juspay/skills/skills/nix-ci
-```
-
-```bash
-apm install
-```
-
-Each skill is a standalone package, so pick only what your project needs. See
-[Kolu's `apm.yml`](https://github.com/juspay/kolu/blob/master/apm.yml) for an
-example.
 
 ### Manual
 
