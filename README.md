@@ -33,6 +33,12 @@ agent you already have, see [Install](#install).
 | [`nix-rust-leptos`](./skills/nix-rust-leptos/SKILL.md) | Conventions for building Leptos CSR apps with Nix (crane + Trunk) |
 | [`nix-typescript`](./skills/nix-typescript/SKILL.md) | pnpm + Nix build conventions — fetchPnpmDeps hash management and dependency workflow |
 
+### Frontend
+
+| Skill | Description |
+|-------|-------------|
+| [`solidjs`](./skills/solidjs/SKILL.md) | Fine-grained SolidJS reactivity, stable view identity, resource ownership, and reactivity audits |
+
 ### Writing
 
 | Skill | Description |
