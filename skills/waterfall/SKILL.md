@@ -18,5 +18,6 @@ Then you open a new Kolu split terminal, and run the implementor agent (in the s
 **IMPORTANT**: 
 - If you are Fable model, you must **NOT** use Fable for any subagents you spawn unless that subagent requires premium intelligence.
 - You are banned from doing any implementation yourself; that happens only through the implementor agent.
+- You must terminate the implementor agent terminal *only after* the PR gets merged.
 
 [^debrief]: Use kolu debrief to wait on any kolu terminal running an agent to go idle.
