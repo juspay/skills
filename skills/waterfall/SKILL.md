@@ -8,7 +8,7 @@ compatibility: Requires kolu
 
 This skill is invoked with an argument that tells us what to implement.
 
-You will respond to the user with a plan, who then approves it (unless they pre-approve). After they approve you must finalize the plan to remove all ambiguities using the question tool, along with asking the user these questions:
+You will respond to the user with a plan (focusing more on architecture-level than walls of text), who then approves it (unless they pre-approve). After they approve you must finalize the plan to remove all ambiguities using the question tool, along with asking the user these questions:
 
 - Which agent to run (e.g.: omp, codex --yolo, etc.)
 - Whether to auto-merge on green CI at end
