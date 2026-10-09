@@ -15,6 +15,18 @@ agent you already have, see [Install](#install).
 
 <img width="549" height="503" alt="image" src="https://github.com/user-attachments/assets/95f1ac62-fd85-422f-93e5-918042bff00d" />
 
+## Use with agent-distro
+
+With [agent-distro](https://github.com/juspay/agent-distro), the whole
+distribution starts with:
+
+```sh
+nix run github:juspay/agent-distro -- github:juspay/skills
+```
+
+A terminal opened in a repository carrying its own `agent-distro.nix` uses
+that repository's profile instead.
+
 ## What's inside
 
 ### Nix
