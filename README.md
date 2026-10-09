@@ -27,6 +27,8 @@ nix run github:juspay/agent-distro -- github:juspay/skills
 A terminal opened in a repository carrying its own `agent-distro.nix` uses
 that repository's profile instead.
 
+CI checks the profile's packages against the binary cache on every platform.
+
 ## What's inside
 
 ### Nix
