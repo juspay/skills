@@ -27,4 +27,4 @@ jobs:
             extra-trusted-public-keys = oss:KO872wNJkCDgmGN3xy9dT89WAhvv13EiKncTtHDItVU=
 
       - name: Check the profile's packages are in the binary cache
-        run: nix run github:juspay/agent-distro/fiery-burden#check-profile
+        run: nix run github:juspay/agent-distro#check-profile
