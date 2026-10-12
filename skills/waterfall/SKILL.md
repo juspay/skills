@@ -28,4 +28,4 @@ Then you open a new Kolu split terminal, and run the implementor agent (in the s
 - You are banned from terminating the implementor agent terminal *unless* the PR gets merged or closed.
 
 [^debrief]: Use kolu debrief to wait on any kolu terminal running an agent to go idle.
-[^pr]: PR title & body should be optimized cursor human reading, using well-formatted Markdown. Avoid verbiage; use visual description where you can.
+[^pr]: PR title & body should be optimized for cursory human reading, using well-formatted Markdown. Avoid verbiage; use visual description where you can.
