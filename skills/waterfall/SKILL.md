@@ -18,9 +18,7 @@ Then you open a new Kolu split terminal, and run the implementor agent (in the s
 
 **IMPORTANT**: 
 - If you are Fable model, you must **NOT** use Fable for any subagents you spawn unless that subagent requires premium intelligence.
-- Keep it cheap: the brief holds only what this skill and the repo rules require; evidence comes from the repo's evidence
-  path (never a production build or a real deploy for a screenshot); tests run once per round and CI once at the end; mid-round
-  asks wait for the next round; compact the implementor between rounds.
+- Keep it cheap: the brief holds only what this skill and the repo rules require; tests run once per round and CI once at the end; mid-round asks wait for the next round; compact the implementor only when the context is large, or before a long new phase like CI
 
 **BANS**:
 - You are banned from doing any implementation yourself; that happens only through the implementor agent.
