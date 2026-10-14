@@ -27,6 +27,22 @@ nix run github:juspay/agent-distro -- github:juspay/skills
 A terminal opened in a repository carrying its own `agent-distro.nix` uses
 that repository's profile instead.
 
+The profile points OMP and OpenCode at Juspay's LiteLLM gateway, so both start
+on `open-large` (`open-fast` for background work) with the gateway's own model
+list — names, context limits, prices — discovered for you. Nothing needs
+configuring by hand.
+
+**Your key.** The first launch asks for `LITELLM_API_KEY` unless it is already
+set. Create one at
+[grid.ai.juspay.net/dashboard](https://grid.ai.juspay.net/dashboard) (Juspay VPN
+required), then `export LITELLM_API_KEY=…` to skip the prompt next time. It is
+never written to a file. Pi, Claude Code and Codex use their own login instead:
+they get this pack's skills and MCP servers, not the gateway's models.
+
+**Opting out.** `AGENT_DISTRO_SETTINGS=0` starts a harness with the plugins and
+nothing else — no gateway environment, no model settings — leaving your own
+providers in place.
+
 CI checks the profile's packages against the binary cache on every platform.
 
 ## What's inside
