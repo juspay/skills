@@ -6,7 +6,7 @@ tooling, plus a NixOS lookup server, packaged once as an
 Claude Code.
 
 ```sh
-AI_PROFILE=juspay nix run github:juspay/agent-distro
+nix run github:juspay/agent-distro -- github:juspay/skills
 ```
 
 That runs the agent of your choice with everything here preloaded, through
@@ -21,11 +21,24 @@ With [agent-distro](https://github.com/juspay/agent-distro), the whole
 distribution starts with:
 
 ```sh
-nix run github:juspay/agent-distro -- github:juspay/skills
+nix run github:juspay/agent-distro -- github:juspay/skills     # pick a harness
+AI_PROFILE=github:juspay/skills agent-distro omp               # the same, by variable
 ```
 
-A terminal opened in a repository carrying its own `agent-distro.nix` uses
-that repository's profile instead.
+To have every installed command use it, with Home Manager:
+
+```nix
+services.agent-distro = {
+  enable = true;
+  profiles = [ "github:juspay/skills" ];
+};
+```
+
+`AI_PROFILE` is a stack: more profiles, whitespace-separated, compose over this
+one, and a repository carrying its own `agent-distro.nix` composes over all of
+them when you launch from inside it — its plugins are added, and its `env` and
+`settings` win where they overlap. Naming the profile positionally, as in the
+first line, uses it exactly, ignoring both.
 
 The profile points OMP and OpenCode at Juspay's LiteLLM gateway, so both start
 on `open-large` (`open-fast` for background work) with the gateway's own model
@@ -91,10 +104,10 @@ CI checks the profile's packages against the binary cache on every platform.
 | `nixos` | [mcp-nixos](https://github.com/utensils/mcp-nixos) — look up packages, versions, and NixOS / Home Manager options instead of guessing them |
 
 The server is declared in [`mcp.json`](./mcp.json) by bare command, so it
-needs `mcp-nixos` on `PATH`. [agent-distro](https://github.com/juspay/agent-distro)'s
-`juspay` profile supplies it, prebuilt; elsewhere, install it yourself, for
-example with `nix profile install nixpkgs#mcp-nixos`. Without it the server
-fails to start and the skills load as usual.
+needs `mcp-nixos` on `PATH`. This profile supplies it, fetched from the binary
+cache when a harness starts; elsewhere, install it yourself, for example with
+`nix profile install nixpkgs#mcp-nixos`. Without it the server fails to start
+and the skills load as usual.
 
 ## Install
 
@@ -109,7 +122,7 @@ plugin.
 
 | Client | How |
 |--------|-----|
-| Any of Oh My Pi, Codex, Claude Code | `AI_PROFILE=juspay nix run github:juspay/agent-distro` |
+| Any of Oh My Pi, Codex, Claude Code | `nix run github:juspay/agent-distro -- github:juspay/skills` |
 | Oh My Pi | `omp plugin marketplace add juspay/skills`, then `omp plugin install juspay-skills@juspay` |
 | Claude Code | `/plugin marketplace add juspay/skills`, then `/plugin install juspay-skills@juspay` |
 | Another Agent Plugins client | Point it at a checkout of this repo |
