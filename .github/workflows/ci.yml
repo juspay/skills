@@ -27,4 +27,5 @@ jobs:
             extra-trusted-public-keys = oss:KO872wNJkCDgmGN3xy9dT89WAhvv13EiKncTtHDItVU=
 
       - name: Check the profile's packages are in the binary cache
-        run: nix run github:juspay/agent-distro#check-profile -- .
+        # Pinned to agent-distro #125's head, since main predates it; drop the pin once #125 is on main.
+        run: nix run github:juspay/agent-distro/36590491fcf662c5b06791059a2dec9aec775a3c#check-profile -- .
