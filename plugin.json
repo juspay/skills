@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "juspay-skills",
-  "description": "Nix, writing, and tooling skills for coding agents",
+  "description": "Juspay skills + Kolu, via Juspay's LiteLLM gateway",
   "author": { "name": "Juspay Technologies" },
   "homepage": "https://github.com/juspay/skills",
   "repository": "https://github.com/juspay/skills",
