@@ -34,11 +34,18 @@ services.agent-distro = {
 };
 ```
 
+This repository is an [Agent Plugin](https://agent-plugins.org/): agent-distro
+reads it as a profile directly — `plugin.json` names it, and the directory is
+its first plugin — so a client needs nothing added. Kolu, the gateway variables
+and the model settings, which an Agent Plugin does not carry, live in
+`plugin.json`'s `extensions."asia.nixos.agent-distro"` block.
+
 `AI_PROFILE` is a stack: more profiles, whitespace-separated, compose over this
-one, and a repository carrying its own `agent-distro.nix` composes over all of
-them when you launch from inside it — its plugins are added, and its `env` and
-`settings` win where they overlap. Naming the profile positionally, as in the
-first line, uses it exactly, ignoring both.
+one, and a repository carrying its own profile — a `plugin.json`, or an
+`agent-distro.nix` when it needs Nix — composes over all of them when you
+launch from inside it: its plugins are added, and its `env` and `settings` win
+where they overlap. Naming the profile positionally, as in the first line, uses
+it exactly, ignoring both.
 
 The profile points OMP and OpenCode at Juspay's LiteLLM gateway, so both start
 on `open-large` (`open-fast` for background work) with the gateway's own model
