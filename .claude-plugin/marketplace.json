@@ -10,7 +10,7 @@
   },
   "plugins": [
     {
-      "name": "juspay-skills",
+      "name": "juspay",
       "description": "Nix, writing, and tooling skills for coding agents",
       "source": "./",
       "category": "development",
