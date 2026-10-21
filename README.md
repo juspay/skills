@@ -124,21 +124,20 @@ root, a skill in each `skills/<name>/SKILL.md`, and MCP servers in `mcp.json`.
 Any client that implements the standard can load it as is.
 
 It is also a plugin marketplace: the catalogs at `.omp-plugin/marketplace.json`
-and `.claude-plugin/marketplace.json` list the repo root as the `juspay-skills`
-plugin.
+and `.claude-plugin/marketplace.json` list the repo root as the `juspay` plugin.
 
 | Client | How |
 |--------|-----|
 | Any of Oh My Pi, Codex, Claude Code | `nix run github:juspay/agent-distro -- github:juspay/skills` |
-| Oh My Pi | `omp plugin marketplace add juspay/skills`, then `omp plugin install juspay-skills@juspay` |
-| Claude Code | `/plugin marketplace add juspay/skills`, then `/plugin install juspay-skills@juspay` |
+| Oh My Pi | `omp plugin marketplace add juspay/skills`, then `omp plugin install juspay@juspay` |
+| Claude Code | `/plugin marketplace add juspay/skills`, then `/plugin install juspay@juspay` |
 | Another Agent Plugins client | Point it at a checkout of this repo |
 | OpenCode | `nix run github:juspay/AI` ([juspay/AI](https://github.com/juspay/AI) bundles these skills) |
 
 ### Oh My Pi
 
 The same two commands work inside a session as `/marketplace add juspay/skills`
-and `/marketplace install juspay-skills@juspay`. To use a local checkout
+and `/marketplace install juspay@juspay`. To use a local checkout
 without installing:
 
 ```bash

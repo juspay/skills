@@ -1,6 +1,6 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
-  "name": "juspay-skills",
+  "name": "juspay",
   "description": "Juspay skills + Kolu, via Juspay's LiteLLM gateway",
   "author": { "name": "Juspay Technologies" },
   "homepage": "https://github.com/juspay/skills",
@@ -9,7 +9,7 @@
   "keywords": ["nix", "haskell", "rust", "writing", "skills"],
   "extensions": {
     "asia.nixos.agent-distro": {
-      "plugins": ["github:juspay/kolu?dir=agent-plugin"],
+      "plugins": ["github:juspay/kolu"],
       "packages": ["mcp-nixos"],
       "env": {
         "LITELLM_BASE_URL": "https://grid.ai.juspay.net",
