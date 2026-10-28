@@ -104,6 +104,15 @@ CI checks the profile's packages against the binary cache on every platform.
 | [`vhs`](./skills/vhs/SKILL.md) | Deterministic terminal demo screencasts with VHS and wait patterns |
 | [`waterfall`](./skills/waterfall/SKILL.md) | Implement anything end-to-end using two agents: a planner cum reviewer and an implementer. Requires [Kolu](https://kolu.dev) |
 
+### From other plugins
+
+The profile loads these Agent Plugins alongside this one, through
+agent-distro; they are not copied here.
+
+| Plugin | Description |
+|--------|-------------|
+| [`security-audit`](https://github.com/cloudflare/security-audit-skill) | Cloudflare's source-first security review and multi-agent codebase audit (from [cloudflare/security-audit-skill#120](https://github.com/cloudflare/security-audit-skill/pull/120) until it merges) |
+
 ### MCP servers
 
 | Server | Description |

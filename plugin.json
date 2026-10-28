@@ -9,7 +9,7 @@
   "keywords": ["nix", "haskell", "rust", "writing", "skills"],
   "extensions": {
     "asia.nixos.agent-distro": {
-      "plugins": ["github:juspay/kolu"],
+      "plugins": ["github:juspay/kolu", "github:juspay/security-audit-skill/agent-plugin"],
       "packages": ["mcp-nixos"],
       "env": {
         "LITELLM_BASE_URL": "https://grid.ai.juspay.net",
