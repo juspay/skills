@@ -25,5 +25,5 @@ Then you open a new Kolu split terminal, and run the implementor agent (in the s
 - You are banned from starting new agents or new PRs without human's approval.
 - You are banned from terminating the implementor agent terminal *unless* the PR gets merged or closed.
 
-[^debrief]: Use kolu debrief to wait on any kolu terminal running an agent to go idle.
+[^debrief]: After every message to an implementor, keep a background `kolu wait <id> --until working && kolu debrief <id>` running so its finish wakes you; a prompt-only watcher is no substitute.
 [^pr]: PR ttle & body should be interesting to read to users, not boring.
